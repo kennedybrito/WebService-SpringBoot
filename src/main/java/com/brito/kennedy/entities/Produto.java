@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -35,6 +36,11 @@ public class Produto implements Serializable {
 	@JoinTable(name = "tb_prod_categoria", joinColumns = @JoinColumn(name = "produto_id"),
 	inverseJoinColumns = @JoinColumn(name = "categoria_id"))
 	private Set<Categoria> categories = new HashSet<>();
+	
+	@OneToMany(mappedBy = "id.pedido")
+	private Set<ItemPedido> itens = new HashSet<>();
+	
+	
 	
 	public Produto() {
 		
@@ -90,6 +96,13 @@ public class Produto implements Serializable {
 	}
 	public Set<Categoria> getCategories() {
 		return categories;
+	}
+	
+	public Set<Pedido> getPedidos(){
+		Set<Pedido> set = new HashSet<>();
+		for (ItemPedido x : itens ) {
+			set.add(x.getPedido());
+		} return set;
 	}
 
 	@Override

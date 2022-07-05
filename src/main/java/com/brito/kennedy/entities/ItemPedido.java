@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.brito.kennedy.entities.pk.ItemPedidoPk;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_item_pedido")
@@ -42,7 +43,7 @@ public class ItemPedido implements Serializable{
 	}
 	
 	
-
+	@JsonIgnore
 	public Pedido getPedido() {
 		return id.getPedido();
 	}
@@ -51,6 +52,7 @@ public class ItemPedido implements Serializable{
 		id.setPedido(pedido);
 	}
 	
+	@JsonIgnore
 	public Produto getProduto() {
 		return id.getProduto();
 	}
