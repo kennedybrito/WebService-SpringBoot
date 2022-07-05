@@ -51,6 +51,15 @@ public class TesteConfig implements CommandLineRunner{
 		Produto p5 = new Produto(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, "");
 		
 		produtoRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
+		
+		p1.getCategories().add(cat2);
+		p2.getCategories().add(cat1);
+		p2.getCategories().add(cat3);
+		p3.getCategories().add(cat3);
+		p4.getCategories().add(cat3);
+		p5.getCategories().add(cat2);
+
+		produtoRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
 
 		Usuario u1 = new Usuario(null, "teste 1" ,"teste1@gmail.com", "555-555", "123456");
 		Usuario u2 = new Usuario(null, "teste 2" ,"teste2@gmail.com", "777-777", "12345678");
