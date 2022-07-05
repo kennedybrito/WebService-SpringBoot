@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.brito.kennedy.entities.Categoria;
 import com.brito.kennedy.entities.Pedido;
+import com.brito.kennedy.entities.Produto;
 import com.brito.kennedy.entities.Usuario;
 import com.brito.kennedy.entities.enums.StatusPedido;
 import com.brito.kennedy.repositories.CategoriaRepository;
 import com.brito.kennedy.repositories.PedidoRepository;
+import com.brito.kennedy.repositories.ProdutoRepository;
 import com.brito.kennedy.repositories.UsuarioRepository;
 
 @Configuration
@@ -30,6 +32,9 @@ public class TesteConfig implements CommandLineRunner{
 	@Autowired
 	private CategoriaRepository categoriaRepository;
 	
+	@Autowired
+	private ProdutoRepository produtoRepository;
+	
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -38,6 +43,14 @@ public class TesteConfig implements CommandLineRunner{
 		Categoria cat3 = new Categoria(null, "Computadores");
 		
 		categoriaRepository.saveAll(Arrays.asList(cat1,cat2 , cat3));
+		
+		Produto p1 = new Produto(null, "The Lord of the Rings", "Lorem ipsum dolor sit amet, consectetur.", 90.5, "");
+		Produto p2 = new Produto(null, "Smart TV", "Nulla eu imperdiet purus. Maecenas ante.", 2190.0, "");
+		Produto p3 = new Produto(null, "Macbook Pro", "Nam eleifend maximus tortor, at mollis.", 1250.0, "");
+		Produto p4 = new Produto(null, "PC Gamer", "Donec aliquet odio ac rhoncus cursus.", 1200.0, "");
+		Produto p5 = new Produto(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, "");
+		
+		produtoRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
 
 		Usuario u1 = new Usuario(null, "teste 1" ,"teste1@gmail.com", "555-555", "123456");
 		Usuario u2 = new Usuario(null, "teste 2" ,"teste2@gmail.com", "777-777", "12345678");
