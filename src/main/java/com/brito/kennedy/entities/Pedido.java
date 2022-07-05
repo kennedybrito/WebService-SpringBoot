@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.brito.kennedy.entities.enums.StatusPedido;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 
@@ -24,6 +25,9 @@ public class Pedido implements Serializable{
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant moment;
 	
+	private Integer statusPedido;
+	
+	
 	// relacionamento muitos pra um
 	@ManyToOne
 	@JoinColumn(name= "cliente_id")
@@ -33,10 +37,11 @@ public class Pedido implements Serializable{
 		
 	}
 
-	public Pedido(Long id, Instant moment, Usuario client) {
+	public Pedido(Long id, Instant moment,StatusPedido statusPedido, Usuario client) {
 		super();
 		Id = id;
 		this.moment = moment;
+		this.setStatusPedido(statusPedido);
 		this.client = client;
 	}
 
@@ -63,7 +68,16 @@ public class Pedido implements Serializable{
 	public void setClient(Usuario client) {
 		this.client = client;
 	}
+	public StatusPedido getStatusPedido() {
+		return StatusPedido.valueOf(statusPedido);
+	}
 
+	public void setStatusPedido(StatusPedido statusPedido) {
+		if(statusPedido != null) {
+			this.statusPedido = statusPedido.getCode();
+		}
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(Id);
@@ -80,6 +94,8 @@ public class Pedido implements Serializable{
 		Pedido other = (Pedido) obj;
 		return Objects.equals(Id, other.Id);
 	}
+
+	
 	
 	
 
