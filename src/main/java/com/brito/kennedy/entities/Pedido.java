@@ -4,11 +4,13 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import com.brito.kennedy.entities.enums.StatusPedido;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -32,6 +34,9 @@ public class Pedido implements Serializable{
 	@ManyToOne
 	@JoinColumn(name= "cliente_id")
 	private Usuario client;
+	
+	@OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL)
+	private Pagamento pagamento;
 	
 	public Pedido() {
 		
@@ -78,6 +83,16 @@ public class Pedido implements Serializable{
 		}
 	}
 	
+	
+	
+	public Pagamento getPagamento() {
+		return pagamento;
+	}
+
+	public void setPagamento(Pagamento pagamento) {
+		this.pagamento = pagamento;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(Id);

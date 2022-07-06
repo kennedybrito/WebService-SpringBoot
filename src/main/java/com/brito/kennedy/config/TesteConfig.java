@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.brito.kennedy.entities.Categoria;
+import com.brito.kennedy.entities.Pagamento;
 import com.brito.kennedy.entities.Pedido;
 import com.brito.kennedy.entities.Produto;
 import com.brito.kennedy.entities.Usuario;
@@ -71,6 +72,10 @@ public class TesteConfig implements CommandLineRunner{
 		
 		usuarioRepository.saveAll(Arrays.asList(u1,u2));
 		pedidoRepository.saveAll(Arrays.asList(o1,o2,o3));
+		
+		Pagamento pag1 = new Pagamento(null, Instant.parse("2022-06-20T19:53:07Z"), o1);
+		o1.setPagamento(pag1);
+		pedidoRepository.save(o1);
 	}
 	
 }
