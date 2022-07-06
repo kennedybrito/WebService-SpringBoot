@@ -2,7 +2,9 @@ package com.brito.kennedy.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.brito.kennedy.entities.enums.StatusPedido;
@@ -34,6 +37,9 @@ public class Pedido implements Serializable{
 	@ManyToOne
 	@JoinColumn(name= "cliente_id")
 	private Usuario client;
+	
+	@OneToMany(mappedBy = "id.pedido")
+	private Set<ItemPedido> items = new HashSet<>();
 	
 	@OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL)
 	private Pagamento pagamento;
@@ -91,6 +97,13 @@ public class Pedido implements Serializable{
 
 	public void setPagamento(Pagamento pagamento) {
 		this.pagamento = pagamento;
+	}
+	
+	public Double getTotal() {
+		double soma = 0.0;
+		for (ItemPedido x : items) {
+			soma += x.getSubTotal();
+		} return soma;
 	}
 
 	@Override

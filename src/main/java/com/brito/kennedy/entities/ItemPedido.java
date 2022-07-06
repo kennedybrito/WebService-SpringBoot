@@ -73,6 +73,9 @@ public class ItemPedido implements Serializable{
 		return Objects.hash(id);
 	}
 
+	public Double getSubTotal() {
+		return preco * quantidade;
+	}
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
